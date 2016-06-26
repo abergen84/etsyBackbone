@@ -43,6 +43,7 @@ var EtsyMultipleView = Backbone.View.extend({
 		var htmlString = ''
 		var listingsArray = this.coll.models
 		console.log(listingsArray)
+		// console.log(listingsArray[1].attributes.title)
 		for(var i = 0; i < listingsArray.length; i++) {
 			// htmlString += '<span>Latest 25 entries</span>'
 			htmlString += '<div data-id="' + listingsArray[i].attributes.listing_id + '" class="item-box">'
@@ -156,10 +157,19 @@ var enterTrigger = function(eventObj){
 	}
 }
 
-document.querySelector("#searchinput").addEventListener('keydown', enterTrigger)
+// var clickTrigger = function(eventObj) {
+// 	location.hash = "search/" + eventObj.target.value
+// 	eventObj.target.value = ''
+// }
 
+// Both the input box and submit button triggering the search
+document.querySelector("#searchinput").addEventListener('keydown', enterTrigger)
+// document.querySelector("header #search button").addEventListener('click', clickTrigger)
+
+// The home button to return home
 document.querySelector("#home").addEventListener('click', function(){
 	location.hash = "home"
 })
+
 
 
