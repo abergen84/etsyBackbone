@@ -21,6 +21,15 @@ body h1,h2,h3,h4,h5,h6 {
 	font-family: "Open Sans"
 }
 
+#home {
+	background: #fff;
+	border-radius: 5px;
+	padding: 5px 20px;
+	font-size: 1rem;
+	outline: none;
+	border-style: none;
+}
+
 header #title {
 	display: block;
 	/*margin: 0 auto;*/
@@ -104,6 +113,7 @@ header #search button {
 	max-width: 75%;
 	margin: 0 auto;
 	display: block;
+	border-radius: 5px;
 }
 
 .indie-item img {
@@ -119,4 +129,5 @@ header #search button {
 
 .indie-item p {
 	padding: 10px 5%;
+	text-align: center;
 }

@@ -82,7 +82,7 @@ var EtsySingleView = Backbone.View.extend({
 		var singleListingBase = this.mod.attributes[0]
 		console.log(this.mod)
 		console.log(singleListingBase)
-		var singleItemRender = "<div class='indie-item'><img src='" + singleListingBase.Images[0].url_570xN + "'><h3>" + singleListingBase.title + "</h3><p>" + singleListingBase.description + "</p></div>"
+		var singleItemRender = "<div class='indie-item'><img src='" + singleListingBase.Images[0].url_570xN + "'><h3>" + singleListingBase.title + "</h3><p>Price: $" + singleListingBase.price + "</p><p>" + singleListingBase.description + "</p></div>"
 
 		this.el.innerHTML = singleItemRender
 	}
@@ -115,6 +115,7 @@ var EtsyRouter = Backbone.Router.extend({
 			dataType: 'jsonp',
 			data: {
 				api_key: searchCollection._apikey,
+				includes: "Images,Shop",
 				keywords: keywords
 			}
 		})
@@ -156,5 +157,9 @@ var enterTrigger = function(eventObj){
 }
 
 document.querySelector("#searchinput").addEventListener('keydown', enterTrigger)
+
+document.querySelector("#home").addEventListener('click', function(){
+	location.hash = "home"
+})
 
 
