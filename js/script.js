@@ -44,8 +44,9 @@ var EtsyMultipleView = Backbone.View.extend({
 		var listingsArray = this.coll.models
 		console.log(listingsArray)
 		for(var i = 0; i < listingsArray.length; i++) {
+			// htmlString += '<span>Latest 25 entries</span>'
 			htmlString += '<div data-id="' + listingsArray[i].attributes.listing_id + '" class="item-box">'
-			htmlString += '<h3>' + listingsArray[i].attributes.title + '...</h3>'
+			htmlString += '<h3>' + listingsArray[i].attributes.title.substring(0,30) + '...</h3>'
 			htmlString += '<img src="' + listingsArray[i].attributes.Images[0].url_170x135 + '">'
 			htmlString += '<p>$' + listingsArray[i].get('price') + '</p>'
 			htmlString += '</div>'
@@ -60,9 +61,9 @@ var EtsyMultipleView = Backbone.View.extend({
 
 	_handleClick: function(eventObj){
 		console.log(eventObj)
-		var singleId = eventObj.target.getAttribute('data-id')
-		console.log(singleId)
-		location.hash = "detail/" + singleId
+		var singleId = eventObj.currentTarget.getAttribute('data-id') //WOW, target vs currentTarget, when i click
+		console.log(singleId)										//on the h3 it doesnt work, but on box it does
+		location.hash = "detail/" + singleId 						//need to put the currentTarget to catch it all
 	}
 })
 
@@ -81,7 +82,7 @@ var EtsySingleView = Backbone.View.extend({
 		var singleListingBase = this.mod.attributes[0]
 		console.log(this.mod)
 		console.log(singleListingBase)
-		var singleItemRender = "<div><img src='" + singleListingBase.Images[0].url_570xN + "'><p>" + singleListingBase.description + "</p></div>"
+		var singleItemRender = "<div class='indie-item'><img src='" + singleListingBase.Images[0].url_570xN + "'><h3>" + singleListingBase.title + "</h3><p>" + singleListingBase.description + "</p></div>"
 
 		this.el.innerHTML = singleItemRender
 	}
