@@ -83,7 +83,7 @@ var EtsySingleView = Backbone.View.extend({
 
 var EtsyRouter = Backbone.Router.extend({
 	routes: {
-		// "search/:keywords": "doSearch",
+		"search/:keywords": "doSearch",
 		"detail/:id":"doDetailView",
 		"home":"goHome",
 		"*catchall":"returnToHomepage"
@@ -94,7 +94,7 @@ var EtsyRouter = Backbone.Router.extend({
 		etsyCollection.fetch({
 			dataType: 'jsonp',
 			data: {
-				api_key: etsyCollection._apikey,
+				api_key: etsyCollection._apikey
 			}
 		})
 
@@ -102,7 +102,16 @@ var EtsyRouter = Backbone.Router.extend({
 	},
 
 	doSearch: function(keywords) {
+		var searchCollection = new EtsyCollection()
+		searchCollection.fetch({
+			dataType: 'jsonp',
+			data: {
+				api_key: searchCollection._apikey,
+				keywords: keywords
+			}
+		})
 
+		var searchView = new EtsyMultipleView(searchCollection)
 	},
 
 	doDetailView: function(id) {
@@ -127,3 +136,16 @@ var EtsyRouter = Backbone.Router.extend({
 })
 
 new EtsyRouter();
+
+var enterTrigger = function(eventObj){
+	// console.log(eventObj)
+	if(eventObj.keyCode === 13) {
+		console.log(eventObj.target.value)
+		location.hash = "search/" + eventObj.target.value
+		eventObj.target.value = ''
+	}
+}
+
+document.querySelector("#searchinput").addEventListener('keydown', enterTrigger)
+
+
