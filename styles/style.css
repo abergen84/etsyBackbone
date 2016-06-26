@@ -1,12 +1,98 @@
-div.title {
-	border: 1px solid red;
-	padding: 10px;
-	margin: 10px 0;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700);
+@import url(https://fonts.googleapis.com/css?family=Gentium+Book+Basic);
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-input {
+body {
+	font-size: 16px;
+	background-color: lightgray;
+}
+
+body p {
+	font-family: "Gentium Book Basic"
+}
+
+body h1,h2,h3,h4,h5,h6 {
+	font-family: "Open Sans"
+}
+
+header #title {
 	display: block;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
+	/*max-width: 375px;*/
+	text-align: center;
+}
+
+header span {
+	font-family: "Gentium Book Basic";
+	font-size: 3rem;
+	font-style: italic;
+	color: #F56400;
+	display: inline-block;
+}
+
+header #title h1 {
+	color: #F56400;
+	font-size: 3rem;
+	letter-spacing: 2px;
+	font-weight: 700;
+	display: inline-block;
+	/*margin: 0 auto;*/
+	/*width: 50%;*/
+	padding: 0 15px;
+}
+
+#search {
+	display: block;
+    /*margin: 0 auto;*/
+    /*max-width: 375px;*/
+    text-align: center;
+}
+
+#search input {
+	display: inline-block;
+	/*margin: 0 auto;*/
 	width: 200px;
-	padding: 2%;
+	padding: 10px;
+	font-size: 1rem;
+	margin-left: 30px;
+}
+
+#search input:focus {
+	border: 2px solid #F56400;
+	outline: none;
+	transition: .5s ease;
+}
+
+header #search button {
+	background-color: #34A8C4;
+	color: #fff;
+	border-radius: 5px;
+	margin-left: 10px;
+	padding: 10px 20px;
+	border-style: none;
+	font-size: 1rem;
+}
+
+#info {
+	font-family: "Gentium Book Basic";
+}
+
+.item-box {
+	border: 1px solid #34A8C4;
+	padding: 10px;
+	margin: 10px;
+	float: left;
+    width: 22%;
+    height: 300px;
+    background: #fff
+}
+
+.item-box h3 {
+	font-family: "Gentium Book Basic"
 }

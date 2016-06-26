@@ -44,13 +44,18 @@ var EtsyMultipleView = Backbone.View.extend({
 		var listingsArray = this.coll.models
 		console.log(listingsArray)
 		for(var i = 0; i < listingsArray.length; i++) {
-			htmlString += '<div data-id="' + listingsArray[i].attributes.listing_id + '" class="title">' + listingsArray[i].attributes.title + '</div>'
-		}
-		this.el.innerHTML = htmlString
+			htmlString += '<div data-id="' + listingsArray[i].attributes.listing_id + '" class="item-box">'
+			htmlString += '<h3>' + listingsArray[i].attributes.title + '...</h3>'
+			htmlString += '<img src="' + listingsArray[i].attributes.Images[0].url_170x135 + '">'
+			htmlString += '<p>$' + listingsArray[i].get('price') + '</p>'
+			htmlString += '</div>'
+
+			this.el.innerHTML = htmlString
+		}		
 	},
 
 	events: {
-		"click .title": "_handleClick"
+		"click .item-box": "_handleClick"
 	},
 
 	_handleClick: function(eventObj){
@@ -74,10 +79,11 @@ var EtsySingleView = Backbone.View.extend({
 
 	_render: function() {
 		var singleListingBase = this.mod.attributes[0]
-		// console.log(singleListingBase.description)
-		var singleDescription = "<p>" + singleListingBase.description + "</p>"
+		console.log(this.mod)
+		console.log(singleListingBase)
+		var singleItemRender = "<div><img src='" + singleListingBase.Images[0].url_570xN + "'><p>" + singleListingBase.description + "</p></div>"
 
-		this.el.innerHTML = singleDescription
+		this.el.innerHTML = singleItemRender
 	}
 })
 
@@ -94,7 +100,8 @@ var EtsyRouter = Backbone.Router.extend({
 		etsyCollection.fetch({
 			dataType: 'jsonp',
 			data: {
-				api_key: etsyCollection._apikey
+				api_key: etsyCollection._apikey,
+				includes: "Images,Shop"
 			}
 		})
 
@@ -119,7 +126,8 @@ var EtsyRouter = Backbone.Router.extend({
 		etsyModel.fetch({
 			dataType: 'jsonp',
 			data: {
-				api_key: etsyModel._apikey
+				api_key: etsyModel._apikey,
+				includes: "Images,Shop"
 			}
 		})
 		var etsySingleView = new EtsySingleView(etsyModel)
