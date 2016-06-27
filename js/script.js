@@ -6,7 +6,7 @@ var EtsyCollection = Backbone.Collection.extend({
 	url: "https://openapi.etsy.com/v2/listings/active.js",
 	_apikey: "4jls0ietsf4fdx1hkkdghcie",
 	parse: function(rawJSON) {
-		console.log(rawJSON.results)
+		// console.log(rawJSON.results)
 		return rawJSON.results
 	} 	
 })
@@ -19,7 +19,7 @@ var EtsyModel = Backbone.Model.extend({
 	_apikey: "4jls0ietsf4fdx1hkkdghcie",
 	
 	parse: function(rawJSON) {
-		console.log(rawJSON)
+		// console.log(rawJSON)
 		return rawJSON.results
 	},
 
@@ -39,10 +39,10 @@ var EtsyMultipleView = Backbone.View.extend({
 	},
 
 	_render: function(){
-		console.log(this.coll)
+		// console.log(this.coll)
 		var htmlString = ''
 		var listingsArray = this.coll.models
-		console.log(listingsArray)
+		// console.log(listingsArray)
 		// console.log(listingsArray[1].attributes.title)
 		for(var i = 0; i < listingsArray.length; i++) {
 			// htmlString += '<span>Latest 25 entries</span>'
@@ -61,9 +61,9 @@ var EtsyMultipleView = Backbone.View.extend({
 	},
 
 	_handleClick: function(eventObj){
-		console.log(eventObj)
+		// console.log(eventObj)
 		var singleId = eventObj.currentTarget.getAttribute('data-id') //WOW, target vs currentTarget, when i click
-		console.log(singleId)										//on the h3 it doesnt work, but on box it does
+		// console.log(singleId)										//on the h3 it doesnt work, but on box it does
 		location.hash = "detail/" + singleId 						//need to put the currentTarget to catch it all
 	}
 })
@@ -74,7 +74,7 @@ var EtsySingleView = Backbone.View.extend({
 
 	initialize: function(mod) {
 		this.mod = mod
-		console.log(this.mod)
+		// console.log(this.mod)
 		var boundRender = this._render.bind(this)
 		this.mod.on('sync', boundRender)
 	},
@@ -82,7 +82,7 @@ var EtsySingleView = Backbone.View.extend({
 	_render: function() {
 		var singleListingBase = this.mod.attributes[0]
 		console.log(this.mod)
-		console.log(singleListingBase)
+		// console.log(singleListingBase)
 		var singleItemRender = "<div class='indie-item'><img src='" + singleListingBase.Images[0].url_570xN + "'><h3>" + singleListingBase.title + "</h3><p>Price: $" + singleListingBase.price + "</p><p>" + singleListingBase.description + "</p></div>"
 
 		this.el.innerHTML = singleItemRender
@@ -151,20 +151,21 @@ new EtsyRouter();
 var enterTrigger = function(eventObj){
 	// console.log(eventObj)
 	if(eventObj.keyCode === 13) {
-		console.log(eventObj.target.value)
+		// console.log(eventObj.target.value)
 		location.hash = "search/" + eventObj.target.value
 		eventObj.target.value = ''
 	}
 }
 
-// var clickTrigger = function(eventObj) {
-// 	location.hash = "search/" + eventObj.target.value
-// 	eventObj.target.value = ''
-// }
+var clickTrigger = function(eventObj) {
+	var inputValue = document.querySelector("#searchinput").value
+	location.hash = "search/" + inputValue
+	inputValue = ''
+}
 
 // Both the input box and submit button triggering the search
 document.querySelector("#searchinput").addEventListener('keydown', enterTrigger)
-// document.querySelector("header #search button").addEventListener('click', clickTrigger)
+document.querySelector("header #search button").addEventListener('click', clickTrigger)
 
 // The home button to return home
 document.querySelector("#home").addEventListener('click', function(){
